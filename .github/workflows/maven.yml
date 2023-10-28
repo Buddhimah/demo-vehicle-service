@@ -34,7 +34,7 @@ jobs:
     - name: Create Release
       run: |
           echo ${{ secrets.TOEKN }} | gh auth login --with-token
-          gh release create --title "Release" --notes "Release" v0.0.1 .service/target/*.war
+          gh release create --title "Release" --notes "Release" v0.0.1 ./service/target/*.war
 
 
 

@@ -4,8 +4,8 @@ FROM debian:latest
 # Dockerfile Maintainer
 LABEL maintainer="Jan Wagner <waja@cyconet.org>"
 
-# Create a non-root user
-RUN useradd -r -u 10014 -g 0 nonrootuser
+# Create a non-root user within the recommended range
+RUN useradd -r -u 10001 -g 0 nonrootuser
 
 # Install nginx and adjust nginx config to stay in foreground
 RUN apt-get update && apt-get install --no-install-recommends -y nginx; \

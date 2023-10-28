@@ -4,8 +4,8 @@ FROM python:3.9-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Add a non-root user
-RUN adduser --disabled-password --gecos '' appuser
+# Add a non-root user within the recommended range
+RUN useradd -m appuser -s /bin/bash -u 10001
 
 # Copy the current directory contents into the container at /app
 COPY . /app

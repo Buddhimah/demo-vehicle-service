@@ -76,6 +76,7 @@ jobs:
           mvn clean install
     - name: Create Release
       run: |
+          echo "Release tag with $new_tag"
           gh release create --title "Release" --notes "Release" $new_tag ./service/target/*.war
 
 

@@ -33,6 +33,7 @@ jobs:
           mvn clean install
     - name: Create Release
       run: |
+          echo ${{ secrets.TOEKN }} | gh auth login --with-token
           current_tag=$(gh api repos/Buddhimah/demo-vehicle-service/releases/latest | jq -r '.tag_name')
 
 
@@ -59,7 +60,6 @@ jobs:
 
           echo "New Tag $new_tag"
 
-          echo ${{ secrets.TOEKN }} | gh auth login --with-token
           gh release create --title "Release" --notes "Release" $new_tag ./service/target/*.war
 
 

@@ -74,10 +74,12 @@ jobs:
               fi
           done
           mvn clean install
+
+          echo "new_tag=$new_tag" >> $GITHUB_ENV
     - name: Create Release
       run: |
           echo "Release tag with $new_tag"
-          gh release create --title "Release" --notes "Release" $new_tag ./service/target/*.war
+          gh release create --title "Release" --notes "Release" env.new_tag ./service/target/*.war
 
 
     

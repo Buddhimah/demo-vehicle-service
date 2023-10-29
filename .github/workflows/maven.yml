@@ -35,6 +35,7 @@ jobs:
           echo ${{ secrets.TOEKN }} | gh auth login --with-token
           current_tag=$(gh api repos/Buddhimah/demo-vehicle-service/releases/latest | jq -r '.tag_name')
 
+          echo "Current Tag $curent_tag"
 
           echo "Extract the version number using regular expressions"
 

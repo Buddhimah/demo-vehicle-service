@@ -68,8 +68,8 @@ jobs:
 
           # Iterate through each pom.xml file and replace the version tag
           for file in $pom_files; do
-              if grep -q "<version>.*</version>" "$file"; then
-                  sed -i "s#<version>.*</version>#<version>$new_version</version>#g" "$file"
+              if grep -q "<version>\d\.\d\.\d-SNAPSHOT</version>" "$file"; then
+                  sed -i "s#<version>\d\.\d\.\d-SNAPSHOT</version>#<version>$new_version</version>#g" "$file"
                   echo "Version tag in $file has been changed to $new_version"
               fi
           done

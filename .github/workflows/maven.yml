@@ -79,6 +79,7 @@ jobs:
     - name: Create Release
       run: |
           echo "Release tag with $new_tag"
+          ls
           gh release create --title "Release" --notes "Release" env.new_tag ./service/target/*.war
 
 

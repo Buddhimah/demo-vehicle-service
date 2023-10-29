@@ -33,8 +33,28 @@ jobs:
           mvn clean install
     - name: Create Release
       run: |
+          current_tag=$(gh api repos/Buddhimah/demo-vehicle-service/releases/latest | jq -r '.tag_name')
+
+
+          # Extract the version number using regular expressions
+          regex="v([0-9]+).([0-9]+).([0-9]+)"
+          if [[ $current_tag =~ $regex ]]; then
+              major="${BASH_REMATCH[1]}"
+              minor="${BASH_REMATCH[2]}"
+              patch="${BASH_REMATCH[3]}"
+          else
+              echo "Invalid tag format"
+              exit 1
+          fi
+
+          # Increment the patch version
+          patch=$((patch + 1))
+
+          # Form the new tag
+          new_tag="v${major}.${minor}.${patch}"
+
           echo ${{ secrets.TOEKN }} | gh auth login --with-token
-          gh release create --title "Release" --notes "Release" v0.0.1 ./service/target/*.war
+          gh release create --title "Release" --notes "Release" $new_tag ./service/target/*.war
 
 
 

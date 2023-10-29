@@ -53,6 +53,8 @@ jobs:
           # Form the new tag
           new_tag="v${major}.${minor}.${patch}"
 
+          echo "New Tag $new_tag"
+
           echo ${{ secrets.TOEKN }} | gh auth login --with-token
           gh release create --title "Release" --notes "Release" $new_tag ./service/target/*.war
 

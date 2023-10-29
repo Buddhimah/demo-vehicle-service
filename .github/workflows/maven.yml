@@ -57,5 +57,4 @@ jobs:
           gh release create --title "Release" --notes "Release" $new_tag ./service/target/*.war
 
 
-
     

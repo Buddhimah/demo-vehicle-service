@@ -31,9 +31,7 @@ jobs:
     - name: Build with Maven
       run: |
           cd service
-          mvn clean install
-    - name: Create Release
-      run: |
+
           echo ${{ secrets.TOEKN }} | gh auth login --with-token
           current_tag=$(gh api repos/Buddhimah/demo-vehicle-service/releases/latest | jq -r '.tag_name')
 
@@ -61,6 +59,23 @@ jobs:
 
           echo "New Tag $new_tag"
 
+          new_version="${major}.${minor}.${patch}"
+
+          echo "New version: $new_version"
+
+          # Find all pom.xml files in the current directory and its subdirectories
+          pom_files=$(find . -name 'pom.xml')
+
+          # Iterate through each pom.xml file and replace the version tag
+          for file in $pom_files; do
+              if grep -q "<version>.*</version>" "$file"; then
+                  sed -i "s#<version>.*</version>#<version>$new_version</version>#g" "$file"
+                  echo "Version tag in $file has been changed to $new_version"
+              fi
+          done
+          mvn clean install
+    - name: Create Release
+      run: |
           gh release create --title "Release" --notes "Release" $new_tag ./service/target/*.war
 
 

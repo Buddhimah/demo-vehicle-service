@@ -32,6 +32,8 @@ jobs:
       run: |
           cd service
 
+          echo "Extracting Current tag from demo vehicle service"
+
           echo ${{ secrets.TOEKN }} | gh auth login --with-token
           current_tag=$(gh api repos/Buddhimah/demo-vehicle-service/releases/latest | jq -r '.tag_name')
 

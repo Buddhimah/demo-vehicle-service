@@ -37,7 +37,7 @@ jobs:
           echo ${{ secrets.TOEKN }} | gh auth login --with-token
 
           gh api repos/Buddhimah/demo-vehicle-service/releases/latest 
-          
+
           current_tag=$(gh api repos/Buddhimah/demo-vehicle-service/releases/latest | jq -r '.tag_name')
 
           echo "Current Tag $curent_tag"
@@ -86,7 +86,7 @@ jobs:
       run: |
           echo "Release tag with $new_tag"
           ls
-          gh release create --title "Release" --notes "Release" env.new_tag ./service/target/*.war
+          gh release create --title "Release" --notes "Release $new_tag" $new_tag ./service/target/*.war
 
 
     

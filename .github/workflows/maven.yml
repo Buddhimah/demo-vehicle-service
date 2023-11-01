@@ -88,7 +88,7 @@ jobs:
     - name: Create Release
       run: |
           echo "Release tag with $new_tag"
-          gh release create --title "Release" --notes "Release $new_tag" $new_tag /home/runner/.m2/repository/com/vehicle/service/$new_version/$new_version.war
+          gh release create --title "Release" --notes "Release $new_tag" $new_tag /home/runner/.m2/repository/com/vehicle/service/$new_version/service-$new_version.war
 
 
     

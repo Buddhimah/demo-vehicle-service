@@ -83,6 +83,10 @@ jobs:
       
           mvn install:install-file -Dfile=./target/service-0.0.1-SNAPSHOT.war -DgroupId=com.vehicle -DartifactId=service -Dversion=$new_version -Dpackaging=war
 
+          cd target
+
+          ls
+
           echo "new_tag=$new_tag" >> $GITHUB_ENV
     - name: Create Release
       run: |

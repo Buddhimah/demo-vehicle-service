@@ -84,11 +84,11 @@ jobs:
           mvn install:install-file -Dfile=./target/service-0.0.1-SNAPSHOT.war -DgroupId=com.vehicle -DartifactId=service -Dversion=$new_version -Dpackaging=war
 
           echo "new_tag=$new_tag" >> $GITHUB_ENV
+          echo "new_version=$new_version" >> $GITHUB_ENV
     - name: Create Release
       run: |
           echo "Release tag with $new_tag"
-          ls
-          gh release create --title "Release" --notes "Release $new_tag" $new_tag /home/runner/.m2/repository/com/vehicle/service/*/*.war
+          gh release create --title "Release" --notes "Release $new_tag" $new_tag /home/runner/.m2/repository/com/vehicle/service/$new_version/$new_version.war
 
 
     

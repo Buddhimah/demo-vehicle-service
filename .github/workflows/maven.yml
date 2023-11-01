@@ -80,8 +80,7 @@ jobs:
               fi
           done
           mvn clean install
-          ls
-          mvn install:install-file -Dfile=/target/*.war -DgroupId=com.vehicle -DartifactId=service -Dversion=$new_version -Dpackaging=war
+          mvn install:install-file -Dfile=./target/*.war -DgroupId=com.vehicle -DartifactId=service -Dversion=$new_version -Dpackaging=war
 
           echo "new_tag=$new_tag" >> $GITHUB_ENV
     - name: Create Release

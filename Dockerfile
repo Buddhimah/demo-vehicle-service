@@ -28,6 +28,8 @@ EXPOSE 80
 
 USER 10001
 
+RUN ls -la
+
 # Command to run the Spring Boot application when the container starts
 CMD ["java", "-jar", "/app/service-0.0.23.war"]
 

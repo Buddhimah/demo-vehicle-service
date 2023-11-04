@@ -29,6 +29,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
+      id: buildmvn
       run: |
           cd service
 
@@ -86,6 +87,7 @@ jobs:
           echo "new_tag=$new_tag" >> $GITHUB_ENV
           echo "new_version=$new_version" >> $GITHUB_ENV
     - name: Create Release
+      if: steps.buildmvn.outcome == 'success'
       run: |
           echo "Release tag with $new_tag"
           gh release create --title "Release" --notes "Release $new_tag" $new_tag ./service/target/com/vehicle/service/$new_version/service-$new_version.war

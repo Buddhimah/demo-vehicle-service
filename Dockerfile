@@ -6,12 +6,23 @@ FROM openjdk:17-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
+ARG USER=buddhima
+ARG USER_GROUP=buddhima
 ARG USER_ID=10001
 ARG USER_GROUP_ID=10001
+ARG USER_HOME=/home/${USER}
 
 RUN addgroup -g ${USER_GROUP_ID} -S ory; \
     adduser -u ${USER_ID} -S ory -G ory -D  -h /app -s /bin/nologin; \
     chown -R ${USER_ID}:${USER_GROUP_ID} /app
+
+# create Java prefs dir
+# this is to avoid warning logs printed by FileSystemPreferences class
+RUN \
+    mkdir -p ${USER_HOME}/.java/.systemPrefs \
+    && mkdir -p ${USER_HOME}/.java/.userPrefs \
+    && chmod -R 755 ${USER_HOME}/.java \
+    && chown -R ${USER}:${USER_GROUP} ${USER_HOME}/.java
 
 
 # Download the WAR file from the provided URL and rename it to service.war

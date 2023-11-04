@@ -1,12 +1,12 @@
 openapi: "3.0.0"
 info:
-  title: Greeting Service
+  title: Get Vehicle
   version: 1.0.0
 paths:
-  /greeter/greet:
+  /api/vehicle:
     get:
-      summary: Greet a person
-      description: Greet a person by name
+      summary: Get Vehicle
+      description: Get Vehicle
       tags:
         - greeting
       parameters:

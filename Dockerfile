@@ -20,6 +20,8 @@ RUN addgroup -g ${USER_GROUP_ID} -S ory; \
 
 # Expose the port that your Spring Boot application uses (default is 8080)
 EXPOSE 8080
+EXPOSE 443
+EXPOSE 80
 
 # Command to run the Spring Boot application when the container starts
 CMD ["java", "-jar", "/app/service.war"]

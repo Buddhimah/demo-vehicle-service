@@ -7,7 +7,7 @@ FROM openjdk:17-alpine
 WORKDIR /app
 
 # Download the WAR file from the provided URL and rename it to service.war
-RUN wget https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.18/service-0.0.18.war -O /app/service.war
+RUN wget https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.20/service-0.0.20.war -O /app/service.war
 RUN wget https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.18/keystore.p12 -O /app/keystore.p12
 
 

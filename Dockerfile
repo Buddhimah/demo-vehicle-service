@@ -26,14 +26,8 @@ EXPOSE 8080
 EXPOSE 443
 EXPOSE 80
 
-# Set the working directory
-WORKDIR /app/
-
-# Run ls -la command in the /app/ directory
-RUN ls -la
+USER 10001
 
 # Command to run the Spring Boot application when the container starts
 CMD ["java", "-jar", "/app/service-0.0.23.war"]
 
-
-USER 10001

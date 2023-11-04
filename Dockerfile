@@ -7,7 +7,7 @@ FROM openjdk:17-alpine
 WORKDIR /app
 
 # Download the WAR file from the provided URL and rename it to service.war
-ADD https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.13/service-0.0.13.war /app/service.war
+RUN wget https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.13/service-0.0.13.war -O /app/service.war
 
 ARG USER_ID=10001
 ARG USER_GROUP_ID=10001

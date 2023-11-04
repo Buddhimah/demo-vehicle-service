@@ -91,6 +91,12 @@ jobs:
           ls
           cd service
           ls
+          cd target
+          ls
+          cd repository
+          ls
+          cd com/vehicle/service/$new_version
+          ls
           gh release create --title "Release" --notes "Release $new_tag" $new_tag ./target/repository/com/vehicle/service/$new_version/service-$new_version.war
 
 

@@ -1,23 +1,56 @@
-# Use the OpenJDK image based on Alpine Linux as the base image
-FROM openjdk:17-alpine
+# Copyright (c) 2023, WSO2 LLC. (https://www.wso2.com/) All Rights Reserved.
+#
+# WSO2 LLC. licenses this file to you under the Apache License,
+# Version 2.0 (the "License"); you may not use this file except
+# in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
 
-ARG USER_ID=10001
-ARG USER_GROUP_ID=10001
 
-RUN addgroup -g ${USER_GROUP_ID} -S ory; \
-    adduser -u ${USER_ID} -S ory -G ory -D  -h /home/ory -s /bin/nologin; \
-    chown -R ${USER_ID}:${USER_GROUP_ID} /home/ory
+# This Dockerfile creates an image that contains the go-greeter executable.
+# The image is based on a small Alpine Linux image.
+# The image uses a non-root user with a known UID/GID to run the container.
+# The image has a single entrypoint, the go-greeter executable.
+FROM golang:1.19-alpine AS builder
 
-USER 10001
-
-# Set the working directory inside the container
+# Set the working directory to /app
 WORKDIR /app
 
-# Download the WAR file from the provided URL and rename it to service.war
-ADD https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.13/service-0.0.13.war /app/service.war
+# Copy the Go source file into the container
+COPY . .
 
-# Expose the port that your Spring Boot application uses (default is 8080)
-EXPOSE 8080
+# Build the Go program inside the container
+RUN go build -o go-greeter .
 
-# Command to run the Spring Boot application when the container starts
-CMD ["java", "-jar", "/app/service.war"]
+# Use a small Alpine Linux image as the base image for the final container
+FROM alpine:latest
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the executable from the builder container
+COPY --from=builder /app/go-greeter .
+
+# Create a user with a known UID/GID within range 10000-20000.
+# This is required by Choreo to run the container as a non-root user.
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid 10014 \
+    "choreo"
+# Use the above created unprivileged user
+USER 10014
+
+# Set the entrypoint to the executable
+ENTRYPOINT ["./go-greeter"]

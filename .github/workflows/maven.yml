@@ -83,29 +83,12 @@ jobs:
       
           mvn -Dmaven.repo.local=/home/runner/work/demo-vehicle-service/demo-vehicle-service/service/target install:install-file -Dfile=./target/service-0.0.1-SNAPSHOT.war -DgroupId=com.vehicle -DartifactId=service -Dversion=$new_version -Dpackaging=war
 
-          ls
-
-          cd target
-
-          ls
-
-          
-
           echo "new_tag=$new_tag" >> $GITHUB_ENV
           echo "new_version=$new_version" >> $GITHUB_ENV
     - name: Create Release
       run: |
           echo "Release tag with $new_tag"
-          ls
-          cd service
-          ls
-          cd target
-          ls
-          cd repository
-          ls
-          cd com/vehicle/service/$new_version
-          ls
-          gh release create --title "Release" --notes "Release $new_tag" $new_tag ./target/repository/com/vehicle/service/$new_version/service-$new_version.war
+          gh release create --title "Release" --notes "Release $new_tag" $new_tag /home/runner/work/demo-vehicle-service/demo-vehicle-service/service/target/com/vehicle/service/$new_version/service-$new_version.war
 
 
     

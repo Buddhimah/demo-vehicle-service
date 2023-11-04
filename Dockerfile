@@ -27,7 +27,7 @@ EXPOSE 443
 EXPOSE 80
 
 # Command to run the Spring Boot application when the container starts
-CMD ["java", "-jar", "/app/service.war"]
+CMD ["java", "-jar", "/app/service-0.0.23.war"]
 
 
 USER 10001

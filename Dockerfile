@@ -8,6 +8,8 @@ WORKDIR /app
 
 # Download the WAR file from the provided URL and rename it to service.war
 RUN wget https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.18/service-0.0.18.war -O /app/service.war
+RUN wget https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.18/keystore.p12 -O /app/keystore.p12
+
 
 ARG USER_ID=10001
 ARG USER_GROUP_ID=10001

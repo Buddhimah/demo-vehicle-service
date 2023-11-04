@@ -90,7 +90,7 @@ jobs:
       if: steps.buildmvn.outcome == 'success'
       run: |
           echo "Release tag with $new_tag"
-          gh release create --title "Release" --notes "Release $new_tag" $new_tag ./service/target/com/vehicle/service/$new_version/service-$new_version.war
+          gh release create --title "Release" --notes "Release $new_tag" $new_tag ./service/target/com/vehicle/service/$new_version/service-$new_version.war ./service/resources/keystore.p12
 
 
     

@@ -31,7 +31,6 @@ jobs:
     - name: Build with Maven
       id: buildmvn
       run: |
-          cd service
 
           echo "Extracting Current tag from demo vehicle service"
 

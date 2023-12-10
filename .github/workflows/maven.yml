@@ -89,8 +89,7 @@ jobs:
       if: steps.buildmvn.outcome == 'success'
       run: |
           echo "Release tag with $new_tag"
-          tree
-          gh release create --title "Release" --notes "Release $new_tag" $new_tag ./target/com/vehicle/service/$new_version/service-$new_version.jar
+          gh release create --title "Release" --notes "Release $new_tag" $new_tag ./target/com/example/employee/$new_version/employee-$new_version.jar
 
 
     

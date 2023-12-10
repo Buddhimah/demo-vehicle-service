@@ -1,27 +1,101 @@
-openapi: "3.0.0"
+openapi: 3.0.1
 info:
-  title: Get Vehicle
-  version: 1.0.0
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
 paths:
-  /api/vehicle:
-    get:
-      summary: Get Vehicle
-      description: Get Vehicle
+  /api/employees/{employeeId}:
+    put:
       tags:
-        - greeting
+      - employee-controller
+      operationId: updatedEmployee
       parameters:
-        - name: name
-          in: query
-          description: Name of the person to greet
-          required: false
-          schema:
-            type: string
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequest'
+        required: true
       responses:
-        '200':
-          description: Successful response
+        "200":
+          description: OK
           content:
-            text/plain:
+            '*/*':
               schema:
-                type: string
-      deprecated: false
-      security: []
+                $ref: '#/components/schemas/Employee'
+    delete:
+      tags:
+      - employee-controller
+      operationId: deleteEmployee
+      parameters:
+      - name: employeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        "204":
+          description: No Content
+  /api/employees:
+    get:
+      tags:
+      - employee-controller
+      operationId: getEmployees
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+    post:
+      tags:
+      - employee-controller
+      operationId: createEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequest'
+        required: true
+      responses:
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Employee'
+components:
+  schemas:
+    EmployeeRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string

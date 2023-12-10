@@ -82,7 +82,7 @@ jobs:
           done
           mvn clean install
       
-          mvn -Dmaven.repo.local=./target/ install:install-file -Dfile=./target/service-0.0.1-SNAPSHOT.war -DgroupId=com.vehicle -DartifactId=service -Dversion=$new_version -Dpackaging=war
+          mvn -Dmaven.repo.local=./target/ install:install-file -Dfile=./target/employee-0.0.1-SNAPSHOT.jar -DgroupId=com.example -DartifactId=employee -Dversion=$new_version -Dpackaging=jar
 
           echo "new_tag=$new_tag" >> $GITHUB_ENV
           echo "new_version=$new_version" >> $GITHUB_ENV
@@ -90,7 +90,8 @@ jobs:
       if: steps.buildmvn.outcome == 'success'
       run: |
           echo "Release tag with $new_tag"
-          gh release create --title "Release" --notes "Release $new_tag" $new_tag ./service/target/com/vehicle/service/$new_version/service-$new_version.war ./service/src/main/resources/keystore.p12
+          tree
+          gh release create --title "Release" --notes "Release $new_tag" $new_tag ./target/com/vehicle/service/$new_version/service-$new_version.jar
 
 
     

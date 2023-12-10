@@ -20,9 +20,8 @@ RUN addgroup -g ${USER_GROUP_ID} -S ory; \
 
 # Download the WAR file from the provided URL and rename it to service.war
 
-ADD --chown=10001:10001 https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.23/service-0.0.23.war /app/
+ADD --chown=10001:10001 https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.34/employee-0.0.34.jar /app/
 
-ADD --chown=10001:10001 https://github.com/Buddhimah/demo-vehicle-service/releases/download/v0.0.23/keystore.p12 /app/
 
 
 # Expose the port that your Spring Boot application uses (default is 8080)
@@ -32,8 +31,6 @@ EXPOSE 80
 
 USER 10001
 
-RUN ls -la
-
 # Command to run the Spring Boot application when the container starts
-CMD ["java", "-jar", "/app/service-0.0.23.war"]
+CMD ["java", "-jar", "/app/employee-0.0.34.jar"]
 
